@@ -1,0 +1,137 @@
+<html>
+	<style>
+		div
+		{
+			top : 15;
+			border: 1px solid blue;
+			width: 400px;
+			height: 390px;
+			position : absolute;
+		}
+		#div1
+		{
+			margin-top: 10;
+		}
+		#div2
+		{
+			margin-top: 420  ;
+		}
+		#div3
+		{
+			top: 25;
+			left: 420;
+		}
+		#div4
+		{
+			top : 436;
+			left : 420;
+		}
+		#div5
+		{
+			top : 30;
+			left : 910;
+			height: 795;
+			border-color: black;
+			text-align: left;
+		}
+		</style>
+	<head>
+	</head>
+	<body>
+		<form name = "form1">
+		<script>
+			id = ["div1","div2","div3","div4","div5"];
+			choices = ["BURGER","PASTA","RICE","DRINKS","RECEIT"];
+			menu = new Array();
+			menu[0]=["REGULAR","DOUBLE_PATTIE","CHESE_BURGER"];
+			menu[1] = ["REGULAR_PASTA","WHITE","CARBONNARA"];
+			menu[2] = ["TAPSILOG","SISIG","LONGSILOG"];
+			menu[3] = ["COKE","STING","COBRA"];
+			
+			prices = new Array();
+			prices[0]  = [50,100,60];
+			prices[1]  = [100,120,130];
+			prices[2]  = [50,100,50];
+			prices[3]  = [10,13,13];
+			total = 0;
+			tempHolderDiv5 = "";
+			for(var a=0;a<id.length;a++)
+			{
+			    document.write("<div id = "+id[a]+" class = \"div\">_______________________O_________________________");
+				document.write("<image src='pic"+a+".png' width=400 height=100><br><br>");
+				if(a==4)
+				{
+					document.getElementById("div5").innerHTML= document.getElementById("div5").innerHTML + "<input type=button value=ORDER onclick=\"disp()\">";
+					tempHolderDiv5 = document.getElementById("div5").innerHTML= document.getElementById("div5").innerHTML;
+				}
+			
+				for(var c = 0;c<menu[a].length;c++)
+				{
+					document.writeln(menu[a][c].replace("_"," ") +" - " + prices[a][c]+ " Qty : <input type = \"text\" size=2 id = "+ menu[a][c]+" value=0 onkeyup = \"computeTotal("+a+","+c+")\"> TOTAL <input type=text size=5 value=0 id = "+menu[a][c]+"1> <br><br>");
+					document.getElementById(menu[a][c]+"1").disabled = true;
+				}
+				document.write(" </div>");		
+			}
+				
+			
+			
+			
+			 function computeTotal(a,c)
+			 {
+				 if (document.getElementById(menu[a][c]).value == "")
+				 {
+					 document.getElementById(menu[a][c]+"1").value = "";
+					 return;
+				 }
+				temp = parseInt(document.getElementById(menu[a][c]).value) * parseInt(prices[a][c]);
+				document.getElementById(menu[a][c]+"1").value = temp;
+				
+			
+			 }
+			 
+			 function disp()
+			 {
+				 document.getElementById("div5").innerHTML = tempHolderDiv5;
+				 total=0;
+				for(var a=0;a<id.length;a++) 
+				{
+					for(var c = 0;c<menu[a].length;c++)
+					{
+						theVal = document.getElementById(menu[a][c]).value;
+						theQuan = document.getElementById(menu[a][c]+"1").value;
+						if(theVal != 0)
+						{
+							total = parseInt(total) + parseInt(theQuan);
+							document.getElementById("div5").innerHTML+="<br>" + theVal + " " + menu[a][c].replace("_"," ") + " X " + prices[a][c] +
+							".................................."+
+							theQuan + "<br>"; 				
+						} 		
+					}
+					if(a==3)
+						{
+							document.getElementById("div5").innerHTML+=""+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+							"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+							" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+							"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+							"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P "+total +"<br>";
+							
+							document.getElementById("div5").innerHTML+=""+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+							"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+							" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+							"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+							"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12%  "+total*0.12+"<br>";
+							
+							document.getElementById("div5").innerHTML+=""+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+							"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+							" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+							"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TOTAL  "+(total+(total*0.12));	
+						} 	
+				}
+					
+			 }
+			
+			</script>
+		</form>
+			
+	</body>
+</html>
